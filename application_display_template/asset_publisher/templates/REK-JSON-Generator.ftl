@@ -1,17 +1,53 @@
 <#--
-This ADT will create a bif fat Javascript object.
+This ADT will create a big fat Javascript object.
 
 TODO: ESCAPE EVERYTHING TO MAKE IT JSON-SAFE
 -->
 <#setting locale=locale>
 
+Test
+<pre>
+<#list entries as entry>
+${entry.classPK}
+	<#assign docXml = saxReaderUtil.read(entry.getAssetRenderer().getArticle().getContentByLocale(locale) ) />
+	{
+	<@printNodes nodeStart = docXml.selectNodes("//root/*") previousNodeName = '' />
+	}
+</#list>
+</pre>
 
+<#-- 
+
+-->
+
+
+
+
+<#macro printNodes nodeStart previousNodeName>
+	<#local prevName = previousNodeName/>
+	<#list nodeStart as node>
+			<#local nodes2 = node.selectNodes("dynamic-element") />
+			<#if (prevName == node.valueOf("@name"))>
+				,
+			<#else>
+				<#if prevName != ''>],</#if>
+				${node.valueOf("@name")}: [
+			</#if>
+			<#local prevName = node.valueOf("@name")/>
+			{
+			fieldValue: "${node.valueOf("dynamic-content/text()")}"
+			<#if nodes2?has_content>,<@printNodes nodeStart = nodes2 previousNodeName = '' /></#if>
+			}
+			<#if !node_has_next>]</#if>
+	</#list>
+</#macro>
 
 <script>
 bigFatData = [
 <#list entries as entry>
 {
 	<@printValue value = entry.getTitle(locale) tween = ','/>
+	id: ${entry.classPK},
 	heading: [
 		<#assign docXml = saxReaderUtil.read(entry.getAssetRenderer().getArticle().getContentByLocale(locale) ) />
 		<#assign headingNodes = docXml.selectNodes("//dynamic-element[@name='heading']") />
