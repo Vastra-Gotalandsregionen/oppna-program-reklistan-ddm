@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="chapter" readOnly="false" repeatable="false" required="true" showLabel="true" type="text" width="large">
+		<meta-data locale="en_US">
+			<entry name="label"><![CDATA[Kapitel]]></entry>
+			<entry name="predefinedValue"><![CDATA[]]></entry>
+			<entry name="tip"><![CDATA[]]></entry>
+		</meta-data>
+	</dynamic-element>
+	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="heading" readOnly="false" repeatable="true" required="true" showLabel="true" type="text" width="large">
+		<dynamic-element dataType="string" indexType="keyword" localizable="true" multiple="false" name="Select7460" readOnly="false" repeatable="false" required="false" showLabel="true" type="select" width="">
+			<dynamic-element name="option9944" type="option" value="normal">
+				<meta-data locale="en_US">
+					<entry name="label"><![CDATA[Normal]]></entry>
+				</meta-data>
+			</dynamic-element>
+			<dynamic-element name="option9945" type="option" value="infobox-small">
+				<meta-data locale="en_US">
+					<entry name="label"><![CDATA[Inforuta liten (streck till vänster)]]></entry>
+				</meta-data>
+			</dynamic-element>
+			<meta-data locale="en_US">
+				<entry name="label"><![CDATA[Select]]></entry>
+				<entry name="predefinedValue"><![CDATA[[""]]]></entry>
+				<entry name="tip"><![CDATA[]]></entry>
+			</meta-data>
+		</dynamic-element>
+		<dynamic-element dataType="html" fieldNamespace="ddm" indexType="keyword" localizable="true" name="body" readOnly="false" repeatable="false" required="false" showLabel="true" type="ddm-text-html" width="large">
+			<meta-data locale="en_US">
+				<entry name="label"><![CDATA[Brödtext]]></entry>
+				<entry name="predefinedValue"><![CDATA[]]></entry>
+				<entry name="tip"><![CDATA[]]></entry>
+			</meta-data>
+		</dynamic-element>
+		<meta-data locale="en_US">
+			<entry name="label"><![CDATA[Rubrik (Blå Versaler)]]></entry>
+			<entry name="predefinedValue"><![CDATA[]]></entry>
+			<entry name="tip"><![CDATA[]]></entry>
+		</meta-data>
+	</dynamic-element>
+</root>
