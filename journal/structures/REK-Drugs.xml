@@ -1,14 +1,7 @@
 <?xml version="1.0"?>
 
 <root available-locales="en_US" default-locale="en_US">
-	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="chapter" readOnly="false" repeatable="false" required="true" showLabel="true" type="text" width="large">
-		<meta-data locale="en_US">
-			<entry name="label"><![CDATA[Kapitel]]></entry>
-			<entry name="predefinedValue"><![CDATA[]]></entry>
-			<entry name="tip"><![CDATA[]]></entry>
-		</meta-data>
-	</dynamic-element>
-	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="heading" readOnly="false" repeatable="true" required="true" showLabel="true" type="text" width="large">
+	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="heading" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 		<dynamic-element dataType="string" indexType="keyword" localizable="true" name="subheading1" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 			<dynamic-element dataType="string" indexType="keyword" localizable="true" name="subheading2" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 				<dynamic-element dataType="string" indexType="keyword" localizable="true" name="area" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
