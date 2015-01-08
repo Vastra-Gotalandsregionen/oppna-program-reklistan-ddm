@@ -1,5 +1,5 @@
 <script>
-	<@assetPublisherEntriesToJSON jsArrayName='dataAdvice' entries=entries locale=locale dateFormat="d MMMM yyyy" />
+	<@assetPublisherEntriesToJSON jsArrayName='dataResources' entries=entries locale=locale dateFormat="d MMMM yyyy" />
 </script>
 
 <#macro assetPublisherEntriesToJSON jsArrayName entries locale dateFormat>

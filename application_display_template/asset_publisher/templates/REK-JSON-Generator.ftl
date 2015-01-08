@@ -16,6 +16,7 @@
 		_index: ${entry_index},
 		_title: "${entry.getTitle(locale)}",
 		_publishDate: "${entry.publishDate?datetime?string(dateFormat)}",
+		_entryId: ${entry.entryId},
 		_viewURL: "${viewURL}",
 		_categories: [
 		<#list entry.getCategories() as category >
