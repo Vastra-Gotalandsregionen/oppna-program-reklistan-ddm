@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<root available-locales="en_US" default-locale="en_US">
+<root available-locales="sv_SE" default-locale="sv_SE">
 	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="heading" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 		<dynamic-element dataType="string" indexType="keyword" localizable="true" name="subheading1" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 			<dynamic-element dataType="string" indexType="keyword" localizable="true" name="subheading2" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
@@ -8,7 +8,7 @@
 					<dynamic-element dataType="string" indexType="keyword" localizable="true" name="recommendedFor" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 						<dynamic-element dataType="string" indexType="keyword" localizable="true" name="substance" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 							<dynamic-element dataType="boolean" indexType="keyword" localizable="true" name="replaceableSubstance" readOnly="false" repeatable="false" required="false" showLabel="true" type="checkbox" width="">
-								<meta-data locale="en_US">
+								<meta-data locale="sv_SE">
 									<entry name="label"><![CDATA[Ersättningsbart (=-ikon)]]></entry>
 									<entry name="predefinedValue"><![CDATA[false]]></entry>
 									<entry name="tip"><![CDATA[]]></entry>
@@ -16,50 +16,50 @@
 							</dynamic-element>
 							<dynamic-element dataType="string" indexType="keyword" localizable="true" name="drug" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="large">
 								<dynamic-element dataType="boolean" indexType="keyword" localizable="true" name="replaceableDrug" readOnly="false" repeatable="false" required="false" showLabel="true" type="checkbox" width="">
-									<meta-data locale="en_US">
+									<meta-data locale="sv_SE">
 										<entry name="label"><![CDATA[Ersättningsbart (=-ikon)]]></entry>
 										<entry name="predefinedValue"><![CDATA[false]]></entry>
 										<entry name="tip"><![CDATA[]]></entry>
 									</meta-data>
 								</dynamic-element>
 								<dynamic-element dataType="string" indexType="keyword" localizable="true" name="infoboxDrug" readOnly="false" repeatable="true" required="false" showLabel="true" type="textarea" width="large">
-									<meta-data locale="en_US">
+									<meta-data locale="sv_SE">
 										<entry name="label"><![CDATA[Inforuta]]></entry>
 										<entry name="predefinedValue"><![CDATA[]]></entry>
 										<entry name="tip"><![CDATA[]]></entry>
 									</meta-data>
 								</dynamic-element>
-								<meta-data locale="en_US">
+								<meta-data locale="sv_SE">
 									<entry name="label"><![CDATA[Preparat (indraget)]]></entry>
 									<entry name="predefinedValue"><![CDATA[]]></entry>
 									<entry name="tip"><![CDATA[]]></entry>
 								</meta-data>
 							</dynamic-element>
-							<meta-data locale="en_US">
+							<meta-data locale="sv_SE">
 								<entry name="label"><![CDATA[Substans (Normal)]]></entry>
 								<entry name="predefinedValue"><![CDATA[]]></entry>
 								<entry name="tip"><![CDATA[]]></entry>
 							</meta-data>
 						</dynamic-element>
-						<meta-data locale="en_US">
+						<meta-data locale="sv_SE">
 							<entry name="label"><![CDATA[Rekommenderas för (Kursiv)]]></entry>
 							<entry name="predefinedValue"><![CDATA[]]></entry>
 							<entry name="tip"><![CDATA[]]></entry>
 						</meta-data>
 					</dynamic-element>
-					<meta-data locale="en_US">
+					<meta-data locale="sv_SE">
 						<entry name="label"><![CDATA[Område (Fet)]]></entry>
 						<entry name="predefinedValue"><![CDATA[]]></entry>
 						<entry name="tip"><![CDATA[]]></entry>
 					</meta-data>
 				</dynamic-element>
-				<meta-data locale="en_US">
+				<meta-data locale="sv_SE">
 					<entry name="label"><![CDATA[Underrubrik 2 (Blå normal)]]></entry>
 					<entry name="predefinedValue"><![CDATA[]]></entry>
 					<entry name="tip"><![CDATA[]]></entry>
 				</meta-data>
 			</dynamic-element>
-			<meta-data locale="en_US">
+			<meta-data locale="sv_SE">
 				<entry name="label"><![CDATA[Underrubrik 1 (Blå fet)]]></entry>
 				<entry name="predefinedValue"><![CDATA[]]></entry>
 				<entry name="tip"><![CDATA[]]></entry>
@@ -67,19 +67,19 @@
 		</dynamic-element>
 		<dynamic-element dataType="string" indexType="keyword" localizable="true" name="infoboxHeading" readOnly="false" repeatable="true" required="false" showLabel="true" type="textarea" width="large">
 			<dynamic-element dataType="string" indexType="keyword" localizable="true" name="infoboxHeadingHeading" readOnly="false" repeatable="false" required="false" showLabel="true" type="text" width="large">
-				<meta-data locale="en_US">
+				<meta-data locale="sv_SE">
 					<entry name="label"><![CDATA[Inforuta - rubrik]]></entry>
 					<entry name="predefinedValue"><![CDATA[]]></entry>
 					<entry name="tip"><![CDATA[Används sällan]]></entry>
 				</meta-data>
 			</dynamic-element>
-			<meta-data locale="en_US">
+			<meta-data locale="sv_SE">
 				<entry name="label"><![CDATA[Inforuta]]></entry>
 				<entry name="predefinedValue"><![CDATA[]]></entry>
 				<entry name="tip"><![CDATA[]]></entry>
 			</meta-data>
 		</dynamic-element>
-		<meta-data locale="en_US">
+		<meta-data locale="sv_SE">
 			<entry name="label"><![CDATA[Rubrik (Blå Versaler)]]></entry>
 			<entry name="predefinedValue"><![CDATA[]]></entry>
 			<entry name="tip"><![CDATA[]]></entry>
