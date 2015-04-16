@@ -1,3 +1,118 @@
+Article ID: ${.vars['reserved-article-id'].data}<br>
+Article Group Id: ${articleGroupId}<br>
+Locale: ${locale}
+
+
+<script>
+
+
+AUI().ready('aui-base', function(A) {
+    'use strict';
+
+    var urlJquery = '/reklistan-theme/custom-lib/jquery/jquery-1.11.2.min.js';
+    var urlHandlebars = '/reklistan-theme/lib/handlebars/handlebars.min.js'
+    var urlArticlePublished = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/0/locale/${locale}";
+    var urlArticleDraft = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/-1/locale/${locale}";    
+
+    // Load jQuery
+    A.Get.js(urlJquery, function (err) {
+        if (err) {
+            alert('Could not load jQuery, URL: ' + urlJquery);
+            return;
+        }
+
+        // jQuery is loaded
+        $(function() {
+            // Load Handlebars
+            $.getScript(urlHandlebars)
+                .done(function() {
+                // Load published article
+                $.ajax(urlArticlePublished)
+                    .done(function(articlePublished) {
+                        // Load draft article
+                        $.ajax(urlArticleDraft)
+                            .done(function(articleDraft) {
+                                init(articlePublished, articleDraft);
+                            })
+                            .fail(function() {
+                                alert('Could not load Draft Article, URL: ' + urlArticleDraft);
+                            });
+                    })
+                    .fail(function() {
+                        alert('Could not load Publised Article Article, URL: ' + urlArticlePublished);
+                    });
+                })
+                .fail(function( jqxhr, settings, exception ) {
+                    alert('Could not load Handlebars, URL: ' + urlHandlebars);
+                });
+        });
+    });
+});
+
+
+
+function init(articlePublished, articleDraft) {
+    console.dir(articlePublished);
+
+
+/**
+ * Make URL safe URL
+ * 
+ * Usage:
+ * {{urlencode variable}} 
+ *
+ */
+Handlebars.registerHelper('urlencode', function(context) {
+    var ret = context || '';
+    ret = ret.replace(/ /g, '_');
+    ret = removeDiacritics(ret);
+    ret = encodeURIComponent(ret);
+
+    return new Handlebars.SafeString(ret);
+});
+
+
+/**
+ * If variabale is equal to value-helper
+ *
+ * Usage:
+ * {{#eq variable eq='hello'}}Print this{{/#if}}
+ */
+Handlebars.registerHelper('eq', function(context, options) {
+    if (context === options.hash.eq) {
+        return options.fn(context);
+    } else {
+        return '';
+    }
+});
+
+
+/**
+ * Parse the text and do some replacing
+ *
+ * Usage:
+ * {{markdownify variable}}
+ */
+Handlebars.registerHelper('markdownify', function(context) {
+    var text = context || '';
+
+    // Convert markdown links to html links
+    text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="\$2">\$1</a>');
+
+    // Convert {{replaceable}} with icon
+    text = text.replace(/\{\{replaceable\}\}/g, '<span class="replaceable">&#8860;</span>');
+    text = text.replace(/\{\{child\}\}/g, '<img src="/reklistan-theme/images/theme/child.png" class="child-icon">');
+
+    return new Handlebars.SafeString(text);
+});
+
+                
+}
+
+
+</script>
+
+<#--
 <script>
 
   var Match, calculate_operations, consecutive_where, create_index, diff, find_match, find_matching_blocks, html_to_tokens, is_end_of_tag, is_start_of_tag, is_tag, is_whitespace, isnt_tag, op_map, recursively_find_matching_blocks, render_operations, wrap;
@@ -513,5 +628,6 @@ AUI().ready('aui-base', function(A) {
 		</div>
 	</#list>
 </div>
+-->
 
 
