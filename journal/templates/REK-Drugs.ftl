@@ -974,7 +974,15 @@ function init(articlePublished, articleDraft) {
     printTemplate(articleDraft, '#details-drugs-template', '#draft-target');
     printTemplate(articlePublished, '#details-drugs-template', '#published-target');
 
-    var articleDiff = htmldiff($('#published-target').html(), $('#draft-target').html());
+    var htmlPublished = $('#published-target').html();
+    var htmlDraft= $('#draft-target').html();
+    var articleDiff;
+
+    if (htmlDraft === htmlPublished) {
+      articleDiff = '<p class="no-diffs">Inga ändringar från publicerad version</p>'
+    } else {
+      articleDiff = htmldiff(htmlPublished, htmlDraft);
+    }
     $('#diff-target').html(articleDiff);
 
     // Show and hide the previews
