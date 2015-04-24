@@ -41,6 +41,7 @@ AUI().ready('aui-base', function(A) {
     var urlArticlePublished = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/0/locale/${locale}";
     var urlArticleDraft = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/-1/locale/${locale}";    
 
+
     // Load jQuery
     A.Get.js(urlJquery, function (err) {
         if (err) {
@@ -59,7 +60,7 @@ AUI().ready('aui-base', function(A) {
             $.ajax(urlArticleDraft)
           )
           .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
-            init(articlePublished[0], articleDraft[0], hbsTemplate[0]);
+            renderDiffPreviews(articlePublished[0], articleDraft[0], hbsTemplate[0]);
           })
           .fail(function(err) {
             alert('Could not load all resources needed\n\n' + JSON.stringify(err));
