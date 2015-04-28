@@ -58,8 +58,12 @@ AUI().ready('aui-base', function(A) {
             $.ajax(urlArticleDraft)
           )
           .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
-          	console.dir(articleDraft[0]); // TODO REMOVE ME
-            renderDiffPreviews(articlePublished[0], articleDraft[0], hbsTemplate[0]);
+            articlePublished = articlePublished[0];
+            articleDraft = articleDraft[0];
+            // Set variable to 'preview' so that we can pick it up in the handlebars template.
+            articlePublished.isPreview = true;
+            articleDraft.isPreview = true;
+            renderDiffPreviews(articlePublished, articleDraft, hbsTemplate[0]);
           })
           .fail(function(err) {
             alert('Could not load all resources needed\n\n' + JSON.stringify(err));
