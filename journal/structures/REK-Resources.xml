@@ -40,4 +40,38 @@
 			</entry>
 		</meta-data>
 	</dynamic-element>
+	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="medium" readOnly="false" repeatable="false" required="false" showLabel="true" type="radio" width="">
+		<dynamic-element name="option10820" type="option" value="both">
+			<meta-data locale="sv_SE">
+				<entry name="label">
+					<![CDATA[Both]]>
+				</entry>
+			</meta-data>
+		</dynamic-element>
+		<dynamic-element name="option10821" type="option" value="mobile">
+			<meta-data locale="sv_SE">
+				<entry name="label">
+					<![CDATA[Mobile]]>
+				</entry>
+			</meta-data>
+		</dynamic-element>
+		<dynamic-element name="option10822" type="option" value="web">
+			<meta-data locale="sv_SE">
+				<entry name="label">
+					<![CDATA[Web]]>
+				</entry>
+			</meta-data>
+		</dynamic-element>
+		<meta-data locale="sv_SE">
+			<entry name="label">
+				<![CDATA[Show in]]>
+			</entry>
+			<entry name="predefinedValue">
+				<![CDATA[["both"]]]>
+			</entry>
+			<entry name="tip">
+				<![CDATA[]]>
+			</entry>
+		</meta-data>
+	</dynamic-element>
 </root>
