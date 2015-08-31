@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 
 <root available-locales="sv_SE" default-locale="sv_SE">
 	<dynamic-element dataType="string" indexType="keyword" localizable="true" name="heading" readOnly="false" repeatable="true" required="true" showLabel="true" type="text" width="large">
@@ -6,74 +5,133 @@
 			<dynamic-element dataType="string" indexType="keyword" localizable="true" multiple="false" name="type" readOnly="false" repeatable="false" required="false" showLabel="true" type="select" width="">
 				<dynamic-element name="option9944" type="option" value="normal">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Normal]]></entry>
+						<entry name="label">
+							<![CDATA[Normal]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option9945" type="option" value="infobox-small">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Inforuta liten (streck till vänster)]]></entry>
+						<entry name="label">
+							<![CDATA[Inforuta liten (streck till vänster)]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option4135" type="option" value="for-childs">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Barn]]></entry>
+						<entry name="label">
+							<![CDATA[Barn]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option6184" type="option" value="infobox-big">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Inforuta stor (med rubriken i blå balk)]]></entry>
+						<entry name="label">
+							<![CDATA[Inforuta stor (med rubriken i blå balk)]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option4070" type="option" value="infobox-medium">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Inforuta (streck runt)]]></entry>
+						<entry name="label">
+							<![CDATA[Inforuta (streck runt)]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option4069" type="option" value="is-header-less">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Rubriklös (information som står utan blå versal ovanför)]]></entry>
+						<entry name="label">
+							<![CDATA[Rubriklös (information som står utan blå versal ovanför)]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option4136" type="option" value="physical-exercise">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Rekommenderad fysisk träning]]></entry>
+						<entry name="label">
+							<![CDATA[Rekommenderad fysisk träning]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<dynamic-element name="option3665" type="option" value="drugs">
 					<meta-data locale="sv_SE">
-						<entry name="label"><![CDATA[Läkemedel (t.ex. andrahandsval)]]></entry>
+						<entry name="label">
+							<![CDATA[Läkemedel (t.ex. andrahandsval)]]>
+						</entry>
 					</meta-data>
 				</dynamic-element>
 				<meta-data locale="sv_SE">
-					<entry name="label"><![CDATA[Type]]></entry>
-					<entry name="predefinedValue"><![CDATA[[""]]]></entry>
-					<entry name="tip"><![CDATA[]]></entry>
+					<entry name="label">
+						<![CDATA[Type]]>
+					</entry>
+					<entry name="predefinedValue">
+						<![CDATA[[""]]]>
+					</entry>
+					<entry name="tip">
+						<![CDATA[]]>
+					</entry>
 				</meta-data>
 			</dynamic-element>
 			<dynamic-element dataType="string" indexType="keyword" localizable="true" name="subheading" readOnly="false" repeatable="false" required="false" showLabel="true" type="text" width="large">
 				<meta-data locale="sv_SE">
-					<entry name="label"><![CDATA[Underrubrik]]></entry>
-					<entry name="predefinedValue"><![CDATA[]]></entry>
-					<entry name="tip"><![CDATA[Används bara till typen "Läkemedel".]]></entry>
+					<entry name="label">
+						<![CDATA[Underrubrik]]>
+					</entry>
+					<entry name="predefinedValue">
+						<![CDATA[]]>
+					</entry>
+					<entry name="tip">
+						<![CDATA[Används bara till typen "Läkemedel".]]>
+					</entry>
 				</meta-data>
 			</dynamic-element>
 			<dynamic-element dataType="document-library" fieldNamespace="ddm" indexType="keyword" localizable="true" name="image" readOnly="false" repeatable="true" required="false" showLabel="true" type="ddm-documentlibrary" width="">
 				<meta-data locale="sv_SE">
-					<entry name="label"><![CDATA[Bild]]></entry>
-					<entry name="predefinedValue"><![CDATA[]]></entry>
-					<entry name="tip"><![CDATA[]]></entry>
+					<entry name="label">
+						<![CDATA[Bild]]>
+					</entry>
+					<entry name="predefinedValue">
+						<![CDATA[]]>
+					</entry>
+					<entry name="tip">
+						<![CDATA[]]>
+					</entry>
 				</meta-data>
 			</dynamic-element>
 			<meta-data locale="sv_SE">
-				<entry name="label"><![CDATA[Brödtext]]></entry>
-				<entry name="predefinedValue"><![CDATA[]]></entry>
-				<entry name="tip"><![CDATA[]]></entry>
+				<entry name="label">
+					<![CDATA[Brödtext]]>
+				</entry>
+				<entry name="predefinedValue">
+					<![CDATA[]]>
+				</entry>
+				<entry name="tip">
+					<![CDATA[]]>
+				</entry>
+			</meta-data>
+		</dynamic-element>
+		<dynamic-element dataType="string" indexType="keyword" localizable="true" name="linktoarticle" readOnly="false" repeatable="false" required="false" showLabel="true" type="text" width="large">
+			<meta-data locale="sv_SE">
+				<entry name="label">
+					<![CDATA[Länk till annan artikel]]>
+				</entry>
+				<entry name="predefinedValue">
+					<![CDATA[]]>
+				</entry>
+				<entry name="tip">
+					<![CDATA[Om du vill att den här artikeln inte ska vara en artikel i sig utan att användaren ska skickas direkt till en annan artikel när hen trycker på den här så skriv in adressen till den artikeln. T.ex: advice/Fysisk_aktivitet/Fysisk_aktivitet_pa_recept_(FaR)]]>
+				</entry>
 			</meta-data>
 		</dynamic-element>
 		<meta-data locale="sv_SE">
-			<entry name="label"><![CDATA[Rubrik (Blå Versaler)]]></entry>
-			<entry name="predefinedValue"><![CDATA[]]></entry>
-			<entry name="tip"><![CDATA[]]></entry>
+			<entry name="label">
+				<![CDATA[Rubrik (Blå Versaler)]]>
+			</entry>
+			<entry name="predefinedValue">
+				<![CDATA[]]>
+			</entry>
+			<entry name="tip">
+				<![CDATA[]]>
+			</entry>
 		</meta-data>
 	</dynamic-element>
 </root>
