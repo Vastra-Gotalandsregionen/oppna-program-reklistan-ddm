@@ -55,9 +55,9 @@ AUI().ready('aui-base', function(A) {
             $.getScript(urlSwag),
             $.getScript(urlDiff),
             $.getScript(urlDiffPreviews),
-            $.ajax(urlHbsTemplate),
-            $.ajax(urlArticlePublished),
-            $.ajax(urlArticleDraft)
+            $.ajax(urlHbsTemplate, {dataType: 'text'}),
+            $.ajax(urlArticlePublished, {dataType: 'json'}),
+            $.ajax(urlArticleDraft, {dataType: 'json'})
           )
           .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
             articlePublished = articlePublished[0];
@@ -67,8 +67,8 @@ AUI().ready('aui-base', function(A) {
             articleDraft.isPreview = true;
             renderDiffPreviews(articlePublished, articleDraft, hbsTemplate[0]);
           })
-          .fail(function(err) {
-            alert('Could not load all resources needed\n\n' + JSON.stringify(err));
+          .fail(function(/*jqXHR, textStatus, errorThrown*/) {
+            alert('Kunda inte ladda alla filer!');
           });
         });
 

@@ -40,33 +40,33 @@ AUI().ready('aui-base', function(A) {
     var urlArticleDraft = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/-1/locale/${locale}";    
 
 
-    // Load jQuery
+    // Load jQuery 
     A.Get.js(urlJquery, function (err) {
         if (err) {
             alert('Could not load jQuery, URL: ' + urlJquery);
             return;
         }
-        // Load all javascript/handlebar templates/json needed.
+        // Load all javascript/handlebar templates/json needed. 
         $(function() {
           $.when(
             $.getScript(urlHandlebars),
             $.getScript(urlSwag),
             $.getScript(urlDiff),
             $.getScript(urlDiffPreviews),
-            $.ajax(urlHbsTemplate),
-            $.ajax(urlArticlePublished),
-            $.ajax(urlArticleDraft)
+            $.ajax(urlHbsTemplate, {dataType: 'text'}),
+            $.ajax(urlArticlePublished, {dataType: 'json'}),
+            $.ajax(urlArticleDraft, {dataType: 'json'})
           )
           .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
             articlePublished = articlePublished[0];
             articleDraft = articleDraft[0];
-            // Set variable to 'preview' so that we can pick it up in the handlebars template.
+            // Set variable to 'preview' so that we can pick it up in the handlebars template. 
             articlePublished.isPreview = true;
             articleDraft.isPreview = true;
             renderDiffPreviews(articlePublished, articleDraft, hbsTemplate[0]);
           })
-          .fail(function(err) {
-            alert('Could not load all resources needed\n\n' + JSON.stringify(err));
+          .fail(function(/*jqXHR, textStatus, errorThrown*/) {
+            alert('Kunda inte ladda alla filer!');
           });
         });
 
