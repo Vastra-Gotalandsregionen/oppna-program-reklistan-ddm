@@ -6,15 +6,16 @@
   <div id="title-target"></div>
   <script id="title-template" type="text/x-handlebars-template">
     <h1 class="preview-article-title">{{title}}</h1>
+    <div class="preview-printed-date only-print">Utskrivet {{date}}</div>
   </script>
 
   <div class="preview-settings">
     <a href="#" class="open-self-new-window" target="_blank">Öppna i nytt eget fönster (för utskrift)</a>
-    <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-published-draft" name="preview-settings" value="show-draft-published" checked>Visa utkast/publicerad</label>
+    <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-published-draft" name="preview-settings" value="show-draft-published">Visa utkast/publicerad</label>
     <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-diff" name="preview-settings" value="show-diff" checked>Visa diff</label>
   </div>
 
-  <div class="preview-box preview-box-draft">
+  <div class="preview-box preview-box-draft hide-me">
     <div class="preview-box-heading">Utkast<span class="no-print"> (<a href="#" class="toggle-show-published">visa publicerad</a>)</span></div>
     <div id="draft-target"></div>
   </div>
@@ -22,7 +23,7 @@
     <div class="preview-box-heading">Publicerad<span class="no-print"> (<a href="#" class="toggle-show-draft">visa utkast</a>)</span></div>
     <div id="published-target"></div>
   </div>    
-  <div class="preview-box preview-box-diff">
+  <div class="preview-box preview-box-diff single-preview-box">
     <div class="preview-box-heading">Diff</div>
     <div id="diff-target"></div>
   </div>
