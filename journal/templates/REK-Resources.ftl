@@ -121,9 +121,6 @@ AUI().ready('aui-base', function(A) {
             $.ajax(urlArticleDraft, {dataType: 'json'})
           )
           .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
-          
-            console.dir(articlePublished);
-          
             articlePublished = articlePublished[0];
             articleDraft = articleDraft[0];
             // Set variable to 'preview' so that we can pick it up in the handlebars template. 
