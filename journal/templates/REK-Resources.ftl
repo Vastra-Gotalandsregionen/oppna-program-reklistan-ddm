@@ -16,14 +16,23 @@
   <div class="preview-box preview-box-draft hide-me">
     <div class="preview-box-heading">Utkast<span class="no-print"> (<a href="#" class="toggle-show-published">visa publicerad</a>)</span></div>
     <div id="draft-target"></div>
+    <div class="section-details section-details-advice force-stacktable">
+        <div id="draft-meta-target"></div>
+    </div>    
   </div>
   <div class="preview-box preview-box-published hide-me">
     <div class="preview-box-heading">Publicerad<span class="no-print"> (<a href="#" class="toggle-show-draft">visa utkast</a>)</span></div>
     <div id="published-target"></div>
+    <div class="section-details section-details-advice force-stacktable">
+        <div id="published-meta-target"></div>
+    </div>    
   </div>    
   <div class="preview-box preview-box-diff single-preview-box">
     <div class="preview-box-heading">Diff</div>
     <div id="diff-target"></div>
+    <div class="section-details section-details-advice force-stacktable">
+        <div id="diff-meta-target"></div>
+    </div>    
   </div>
 </div>
 
