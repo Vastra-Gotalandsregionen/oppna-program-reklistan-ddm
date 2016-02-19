@@ -49,6 +49,17 @@
       color: #0088cc;
       text-decoration: none;
   }
+
+  .versions-outer {
+      margin-top: 1em;
+      text-align: center;
+  }
+
+  .versions-inner {
+      display: inline-block;
+      text-align: left;
+  }
+
 </style>
 
 <link href="/reklistan-theme/css/custom.css?browserId=other&themeId=reklistantheme_WAR_reklistantheme&languageId=en_US&b=6210&t=${.now?datetime?iso_local}" rel="stylesheet" type="text/css">
@@ -61,10 +72,17 @@
   </script>
 
   <div class="preview-settings">
-    <a href="#" target="_blank" class="open-self-new-window" class="btn btn-primary">För utskrift - öppna i nytt eget fönster</a>
+    <a href="#" target="_blank" class="open-self-new-window btn btn-primary">För utskrift - öppna i nytt eget fönster</a>
     <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-published-draft" name="preview-settings" value="show-draft-published">Visa utkast/publicerad</label>
     <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-diff" name="preview-settings" value="show-diff" checked>Visa diff</label>
   </div>
+
+    <div id="versions" class="versions-outer">
+        <div class="versions-inner">
+            <select id="versions-left"></select> Utkast<br />
+            <select id="versions-right"></select> Publicerad
+        </div>
+    </div>
 
   <div class="preview-box preview-box-draft hide-me">
     <div class="preview-box-heading">Utkast<span class="no-print"> (<a href="#" class="toggle-show-published">visa publicerad</a>)</span></div>
@@ -101,7 +119,7 @@ AUI().ready('aui-base', function(A) {
     var urlHbsTemplate = '/reklistan-theme/handlebars/details-advice.hbs';
     var urlArticlePublished = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/0/locale/${locale}";
     var urlArticleDraft = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/-1/locale/${locale}";    
-
+    var urlVersions = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article-versions/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}";
 
     // Load jQuery 
     A.Get.js(urlJquery, function (err) {
@@ -109,30 +127,97 @@ AUI().ready('aui-base', function(A) {
             alert('Could not load jQuery, URL: ' + urlJquery);
             return;
         }
-        // Load all javascript/handlebar templates/json needed. 
+        // Load all javascript/handlebar templates/json needed.
         $(function() {
-          $.when(
+            fetchAndRender(urlArticlePublished, urlArticleDraft, true);
+        });
+
+    });
+
+    function fetchAndRender(urlPublished, urlDraft, updateVersions) {
+        $.when(
             $.getScript(urlHandlebars),
             $.getScript(urlSwag),
             $.getScript(urlDiff),
             $.getScript(urlDiffPreviews),
             $.ajax(urlHbsTemplate, {dataType: 'text'}),
-            $.ajax(urlArticlePublished, {dataType: 'json'}),
-            $.ajax(urlArticleDraft, {dataType: 'json'})
-          )
-          .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft) {
+            $.ajax(urlPublished, {dataType: 'json'}),
+            $.ajax(urlDraft, {dataType: 'json'}),
+            $.ajax(urlVersions, {dataType: 'json'})
+        )
+        .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft, versions) {
+            if(updateVersions) {
+                populateVersions(versions[0]);
+            }
             articlePublished = articlePublished[0];
             articleDraft = articleDraft[0];
-            // Set variable to 'preview' so that we can pick it up in the handlebars template. 
+            // Set variable to 'preview' so that we can pick it up in the handlebars template.
             articlePublished.isPreview = true;
             articleDraft.isPreview = true;
             renderDiffPreviews(articlePublished, articleDraft, hbsTemplate[0]);
-          })
-          .fail(function(/*jqXHR, textStatus, errorThrown*/) {
+        })
+        .fail(function(/*jqXHR, textStatus, errorThrown*/) {
             alert('Kunda inte ladda alla filer!');
-          });
         });
+    }
 
-    });
+    function populateVersions(versions) {
+        var jqVersionsLeft = $('#versions-left');
+        var jqVersionsRight = $('#versions-right');
+        versions.forEach(function(version) {
+            jqVersionsLeft.append('<option data-status="' + version.status + '" value="' + version.version + '">[' + padVersion(version.version) + ' ' + statusEnum[version.status] + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
+            jqVersionsRight.append('<option data-status="' + version.status + '" value="' + version.version + '">[' + padVersion(version.version) + ' ' + statusEnum[version.status] + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
+        });
+        jqVersionsLeft.find('option').first().attr('selected', true);
+        jqVersionsRight.find('option[data-status="0"]').first().attr('selected', true);
+        jqVersionsLeft.change(function() { versionChanged(); });
+        jqVersionsRight.change(function() { versionChanged(); });
+    }
+
+    function versionChanged() {
+        var jqVersionsLeft = $('#versions-left'); //draft
+        var jqVersionsRight = $('#versions-right'); //published
+        var urlArticleDraft     = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article-by-version/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/version/" + jqVersionsLeft.val() + "/locale/${locale}";
+        var urlArticlePublished = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article-by-version/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/version/" + jqVersionsRight.val() + "/locale/${locale}";
+        $('#draft-target').empty();
+        $('#published-target').empty();
+        $('#diff-target').empty();
+        $('#draft-meta-target').empty();
+        $('#published-meta-target').empty();
+        $('#diff-meta-target').empty();
+        fetchAndRender(urlArticlePublished, urlArticleDraft, false);
+    }
+
+    function padVersion(version) {
+        if (version === 1) {
+            return '1.0';
+        }
+        return version;
+    }
+
+    function pad(number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+        return number;
+    }
+
+    function getDate(timestamp) {
+        var now = new Date(timestamp);
+        return now.getFullYear() +
+            '-' + pad(now.getMonth() + 1) +
+            '-' + pad(now.getDate()) +
+            ' ' + pad(now.getHours()) +
+            ':' + pad(now.getMinutes());
+    }
+
+    var statusEnum = {
+        0: 'Godkänd',
+        1: 'Väntar',
+        2: 'Utkast',
+        3: 'Utgången'
+    };
+
+
 });
 </script>
