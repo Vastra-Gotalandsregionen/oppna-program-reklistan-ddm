@@ -73,33 +73,33 @@
 
     <div class="preview-settings">
         <a href="#" target="_blank" class="open-self-new-window btn btn-primary">För utskrift - öppna i nytt eget fönster</a>
-        <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-published-draft" name="preview-settings" value="show-draft-published">Visa utkast/publicerad</label>
+        <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-published-draft" name="preview-settings" value="show-draft-published">Visa version A</label>
         <label><input type="checkbox" class="chekbox-show-preview checkbox-show-preview-diff" name="preview-settings" value="show-diff" checked>Visa diff</label>
     </div>
 
     <div id="versions" class="versions-outer">
         <div class="versions-inner">
-            <select id="versions-left"></select> Utkast<br />
-            <select id="versions-right"></select> Publicerad
+            <select id="versions-left"></select> Version A<br />
+            <select id="versions-right"></select> Version B
         </div>
     </div>
 
     <div class="preview-box preview-box-draft hide-me">
-        <div class="preview-box-heading">Utkast<span class="no-print"> (<a href="#" class="toggle-show-published">visa publicerad</a>)</span></div>
+        <div class="version-a-heading preview-box-heading">Version A</div>
         <div id="draft-target"></div>
         <div class="section-details section-details-advice force-stacktable">
             <div id="draft-meta-target"></div>
         </div>
     </div>
     <div class="preview-box preview-box-published hide-me">
-        <div class="preview-box-heading">Publicerad<span class="no-print"> (<a href="#" class="toggle-show-draft">visa utkast</a>)</span></div>
+        <div class="preview-box-heading">Publicerad</div>
         <div id="published-target"></div>
         <div class="section-details section-details-advice force-stacktable">
             <div id="published-meta-target"></div>
         </div>
     </div>
     <div class="preview-box preview-box-diff single-preview-box">
-        <div class="preview-box-heading">Diff</div>
+        <div class="diff-heading preview-box-heading">Diff</div>
         <div id="diff-target"></div>
         <div class="section-details section-details-advice force-stacktable">
             <div id="diff-meta-target"></div>
@@ -117,9 +117,9 @@
         var urlDiff = '/reklistan-theme/custom-lib/diff.js/diff.js';
         var urlDiffPreviews = '/reklistan-theme/js/diff-previews.js';
         var urlHbsTemplate = '/reklistan-theme/handlebars/resources.hbs';
-        var urlArticlePublished = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/0/locale/${locale}";
-        var urlArticleDraft = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}/status/-1/locale/${locale}";
         var urlVersions = "/api/jsonws/skinny-web.skinny/get-skinny-journal-article-versions/group-id/${articleGroupId}/article-id/${.vars['reserved-article-id'].data}";
+
+        var hbsTemplate;
 
         // Load jQuery
         A.Get.js(urlJquery, function (err) {
@@ -127,34 +127,39 @@
                 alert('Could not load jQuery, URL: ' + urlJquery);
                 return;
             }
-            // Load all javascript/handlebar templates/json needed.
             $(function() {
-                fetchAndRender(urlArticlePublished, urlArticleDraft, true);
+                $.when(
+                        $.ajax(urlHbsTemplate, {dataType: 'text'}),
+                        $.ajax(urlVersions, {dataType: 'json'}),
+                        $.getScript(urlHandlebars),
+                        $.getScript(urlSwag),
+                        $.getScript(urlDiff),
+                        $.getScript(urlDiffPreviews)
+                        )
+                        .then(function(respTemplate, respVersions) {
+                            hbsTemplate = respTemplate[0];
+                            populateVersions(respVersions[0]);
+                            versionChanged();
+                        })
+                        .fail(function(/*jqXHR, textStatus, errorThrown*/) {
+                            alert('Kunda inte ladda alla filer!');
+                        });
             });
 
         });
 
-        function fetchAndRender(urlPublished, urlDraft, updateVersions) {
+        function fetchAndRender(urlPublished, urlDraft) {
             $.when(
-                    $.getScript(urlHandlebars),
-                    $.getScript(urlSwag),
-                    $.getScript(urlDiff),
-                    $.getScript(urlDiffPreviews),
-                    $.ajax(urlHbsTemplate, {dataType: 'text'}),
                     $.ajax(urlPublished, {dataType: 'json'}),
-                    $.ajax(urlDraft, {dataType: 'json'}),
-                    $.ajax(urlVersions, {dataType: 'json'})
+                    $.ajax(urlDraft, {dataType: 'json'})
                     )
-                    .then(function(voidHandlebars, voidSwag, voidDiff, voidDiffPreviews, hbsTemplate, articlePublished, articleDraft, versions) {
-                        if(updateVersions) {
-                            populateVersions(versions[0]);
-                        }
+                    .then(function(articlePublished, articleDraft) {
                         articlePublished = articlePublished[0];
-                        articleDraft = articleDraft[0];
+                        articleDraft     = articleDraft[0];
                         // Set variable to 'preview' so that we can pick it up in the handlebars template.
                         articlePublished.isPreview = true;
-                        articleDraft.isPreview = true;
-                        renderDiffPreviews(articlePublished, articleDraft, hbsTemplate[0]);
+                        articleDraft.isPreview     = true;
+                        renderDiffPreviews(articlePublished, articleDraft, hbsTemplate);
                     })
                     .fail(function(/*jqXHR, textStatus, errorThrown*/) {
                         alert('Kunda inte ladda alla filer!');
@@ -164,12 +169,14 @@
         function populateVersions(versions) {
             var jqVersionsLeft = $('#versions-left');
             var jqVersionsRight = $('#versions-right');
-            versions.forEach(function(version) {
-                jqVersionsLeft.append('<option data-status="' + version.status + '" value="' + version.version + '">[' + padVersion(version.version) + ' ' + statusEnum[version.status] + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
-                jqVersionsRight.append('<option data-status="' + version.status + '" value="' + version.version + '">[' + padVersion(version.version) + ' ' + statusEnum[version.status] + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
+            versions.forEach(function(version, index) {
+                var isFirst = (index === 0).toString();
+                var isLast = (index === versions.length - 1).toString();
+                jqVersionsLeft.append('<option data-isfirst="' + isFirst + '" data-islast="' + isLast + '" data-status="' + version.status + '" value="' + version.version + '">[v' + padVersion(version.version) + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
+                jqVersionsRight.append('<option data-isfirst="' + isFirst + '" data-islast="' + isLast + '" data-status="' + version.status + '" value="' + version.version + '">[v' + padVersion(version.version) + '] ' + getDate(version.modifiedDate) + ' av ' + version.author + '</option>');
             });
             jqVersionsLeft.find('option').first().attr('selected', true);
-            jqVersionsRight.find('option[data-status="0"]').first().attr('selected', true);
+            jqVersionsRight.find('option').last().attr('selected', true);
             jqVersionsLeft.change(function() { versionChanged(); });
             jqVersionsRight.change(function() { versionChanged(); });
         }
